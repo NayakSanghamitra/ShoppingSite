@@ -8,7 +8,11 @@
       <div v-for="item in cartItems" :key="item.id" class="card mb-3 pt-3">
         <div class="row g-0">
           <div class="col-md-4 d-flex align-items-center">
-            <img :src="item.image" :alt="item.title" class="img-fluid cart-image">
+            <img
+              :src="item.image"
+              :alt="item.title"
+              class="img-fluid cart-image"
+            />
           </div>
           <div class="col-md-8">
             <div class="card-body">
@@ -17,31 +21,37 @@
                 <div class="product-details__price mb-3">
                   Price: <span class="price">{{ item.price }}</span>
                 </div>
-                <button @click="removeFromCart(item.id)" class="btn btn-danger">Remove</button>
+                <button @click="removeFromCart(item.id)" class="btn btn-danger">
+                  Remove
+                </button>
               </div>
             </div>
           </div>
         </div>
       </div>
-      <div class="total-price text-end">Total Price: {{ calculateTotalPrice }}</div>
+      <div class="total-price text-end">
+        Total Price: {{ calculateTotalPrice }}
+      </div>
     </div>
-    <p v-if="productAdded" class="text-center text-success mt-4">Product added to cart.</p>
+    <p v-if="productAdded" class="text-center text-success mt-4">
+      Product added to cart.
+    </p>
   </main>
 </template>
 
 <script>
-import { useStore } from 'vuex';
-import { computed, ref, watch } from 'vue';
+import { useStore } from "vuex";
+import { computed, ref, watch } from "vue";
 
 export default {
-  name: 'CartView',
+  name: "CartView",
   setup() {
     const store = useStore();
     const cartItems = computed(() => store.getters.cartItems);
     const productAdded = ref(false);
 
     const removeFromCart = (productId) => {
-      store.dispatch('removeFromCart', productId);
+      store.dispatch("removeFromCart", productId);
     };
 
     const calculateTotalPrice = computed(() => {

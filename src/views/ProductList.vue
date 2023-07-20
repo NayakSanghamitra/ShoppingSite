@@ -1,51 +1,80 @@
 <template>
   <main>
     <div class="filters">
-      <input type="text" v-model="searchQuery" placeholder="Search by title" class="filter-input" />
-      <select v-model="categoryFilter" class="filter-select" >
+      <input
+        type="text"
+        v-model="searchQuery"
+        placeholder="Search by title"
+        class="filter-input"
+      />
+      <select v-model="categoryFilter" class="filter-select">
         <option value="">All categories</option>
-        <option v-for="category in uniqueCategories" :value="category" :key="category">{{ category }}</option>
+        <option
+          v-for="category in uniqueCategories"
+          :value="category"
+          :key="category"
+        >
+          {{ category }}
+        </option>
       </select>
-      <input type="number" v-model="priceFilter" placeholder="Filter by price" class="filter-input" />
-      <input type="number" v-model="ratingFilter" placeholder="Filter by rating" class="filter-input" />
+      <input
+        type="number"
+        v-model="priceFilter"
+        placeholder="Filter by price"
+        class="filter-input"
+      />
+      <input
+        type="number"
+        v-model="ratingFilter"
+        placeholder="Filter by rating"
+        class="filter-input"
+      />
     </div>
-    
+
     <article class="products mt-6">
-    <template v-if="filteredProducts.length > 0">
-      <section class="card-body products__item"  v-for="product in filteredProducts" :key="product.id" >
-        <!-- Product item content -->
-        <RouterLink :to="`/products/${product.id}`">
-          <!-- <div class="fade">
+      <template v-if="filteredProducts.length > 0">
+        <section
+          class="card-body products__item"
+          v-for="product in filteredProducts"
+          :key="product.id"
+        >
+          <!-- Product item content -->
+          <RouterLink :to="`/products/${product.id}`">
+            <!-- <div class="fade">
             {{product.title}}
           </div> -->
-          <img class="products__thumbnail" :src="product.image" :alt="product.title" />
-          <span class="text_title">{{ product.title }}</span>
-        </RouterLink>
-      </section> 
-    </template>
-    <span v-else class="text-center">No Product Available</span>
+            <img
+              class="products__thumbnail"
+              :src="product.image"
+              :alt="product.title"
+            />
+            <span class="text_title">{{ product.title }}</span>
+          </RouterLink>
+        </section>
+      </template>
+      <span v-else class="text-center">No Product Available</span>
     </article>
   </main>
 </template>
 
 <script>
-import { useStore } from 'vuex';
-import { computed, ref } from 'vue';
+import { useStore } from "vuex";
+import { computed, ref } from "vue";
 
 export default {
-  name: 'AppUserList',
+  name: "AppUserList",
   components: {},
   setup() {
     const store = useStore();
     const products = computed(() => store.state.products);
 
-    const searchQuery = ref('');
-    const categoryFilter = ref('');
-    const priceFilter = ref('');
-    const ratingFilter = ref('');
+    const searchQuery = ref("");
+    const categoryFilter = ref("");
+    const priceFilter = ref("");
+    const ratingFilter = ref("");
 
     const filteredProducts = computed(() => {
-      return products.value.filter(product => {
+      return products.value.filter((product) => {
         // Apply search filter
         if (searchQuery.value && !product.title.includes(searchQuery.value)) {
           return false;
@@ -59,7 +88,10 @@ export default {
           return false;
         }
         // Apply rating filter
-        if (ratingFilter.value && product.rating.rate !== Number(ratingFilter.value)) {
+        if (
+          ratingFilter.value &&
+          product.rating.rate !== Number(ratingFilter.value)
+        ) {
           return false;
         }
         return true;
@@ -68,7 +100,7 @@ export default {
 
     const uniqueCategories = computed(() => {
       const categories = new Set();
-      products.value.forEach(product => categories.add(product.category));
+      products.value.forEach((product) => categories.add(product.category));
       return Array.from(categories);
     });
 
@@ -87,7 +119,6 @@ export default {
 
 <style scoped>
 .products {
-
   display: grid;
   grid-gap: 8rem;
   grid:
@@ -130,7 +161,7 @@ export default {
   padding-top: 7.5rem;
   justify-content: space-between;
   margin-bottom: 1rem;
-  border-radius:10px;
+  border-radius: 10px;
 }
 
 .no-products {
@@ -152,5 +183,4 @@ export default {
   font-size: 16px;
   background-color: #fff;
 }
-
 </style>

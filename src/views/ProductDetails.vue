@@ -5,7 +5,11 @@
     </div>
     <div class="product-details__content">
       <div class="product-details__image-container">
-        <img :src="product.image" :alt="product.title" class="product-details__image" />
+        <img
+          :src="product.image"
+          :alt="product.title"
+          class="product-details__image"
+        />
       </div>
       <div class="product-details__info">
         <div class="product-details__price">
@@ -20,7 +24,11 @@
             <span v-for="i in Math.floor(product.rating.rate)" :key="i">
               <i class="bi bi-star-fill"></i>
             </span>
-            <span v-if="product.rating.rate - Math.floor(product.rating.rate) >= 0.5">
+            <span
+              v-if="
+                product.rating.rate - Math.floor(product.rating.rate) >= 0.5
+              "
+            >
               <i class="bi bi-star-half"></i>
             </span>
             <span v-for="i in Math.floor(5 - product.rating.rate)" :key="i">
@@ -32,39 +40,46 @@
           <h3>Description:</h3>
           <p>{{ product.description }}</p>
         </div>
-        <button @click="addToCartAndRedirect(product)" class="add-to-cart-button">Add to Cart</button>
+        <button
+          @click="addToCartAndRedirect(product)"
+          class="add-to-cart-button"
+        >
+          Add to Cart
+        </button>
       </div>
     </div>
   </section>
 </template>
 
 <script>
-import { useRoute, useRouter  } from 'vue-router';
-import { useStore } from 'vuex';
-import { computed } from 'vue';
-import 'bootstrap-icons/font/bootstrap-icons.css';
+import { useRoute, useRouter } from "vue-router";
+import { useStore } from "vuex";
+import { computed } from "vue";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 export default {
-  name: 'ProductDetails',
+  name: "ProductDetails",
   setup() {
     const route = useRoute();
     const router = useRouter();
     const store = useStore();
     const products = computed(() => store.state.products);
     const productId = Number(route.params.id);
-    const product = computed(() => products.value.find((product) => product.id === productId));
+    const product = computed(() =>
+      products.value.find((product) => product.id === productId)
+    );
     const addToCart = (product) => {
-      store.dispatch('addToCart', product);
+      store.dispatch("addToCart", product);
     };
     const addToCartAndRedirect = (product) => {
       addToCart(product);
-      router.push('/cartpage');
+      router.push("/cartpage");
     };
 
     return {
       product,
       addToCart,
-      addToCartAndRedirect
+      addToCartAndRedirect,
     };
   },
 };
@@ -142,5 +157,4 @@ export default {
   font-size: 1.2rem;
   margin-right: 2px;
 }
-
 </style>

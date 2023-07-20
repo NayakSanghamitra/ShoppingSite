@@ -1,53 +1,31 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import ProductList from '../views/ProductList.vue'
-import CartPage from "../views/CartPage.vue"
-import AboutPage from "../views/AboutPage.vue"
-import SignUp from "../views/SignUp.vue"
-import ProductDetails from "../views/ProductDetails.vue"
+import { createRouter, createWebHistory } from 'vue-router';
 
 const routes = [
   {
     path: '/',
     name: 'Home',
-    component: ProductList
+    component: () => import(/* webpackChunkName: "productList" */ '../views/ProductList.vue'),
   },
   {
     path: '/cartpage',
     name: 'CartPage',
-    component: CartPage
+    component: () => import(/* webpackChunkName: "cartPage" */ '../views/CartPage.vue'),
   },
   {
     path: '/about',
     name: 'About',
-    component: AboutPage
+    component: () => import(/* webpackChunkName: "aboutPage" */ '../views/AboutPage.vue'),
   },
-  {
-    path: '/signup', 
-    name: 'SignUp',
-    component: SignUp
-  },
-  // {
-  //   path: '/users/:username',
-  //   name: "Users",
-  //   component: AppUser,
-  //   children: [
-  //       {
-  //         path: "/user/:username/info",
-  //         name: "Info",
-  //         component: UserInfo
-  //       }
-  //   ]
-  // },
   {
     path: '/products/:id',
-    name: "Products",
-    component: ProductDetails,
-  }
-]
+    name: 'Products',
+    component: () => import(/* webpackChunkName: "productDetails" */ '../views/ProductDetails.vue'),
+  },
+];
 
 const router = createRouter({
   history: createWebHistory(process.env.BASE_URL),
-  routes
-})
+  routes,
+});
 
-export default router
+export default router;
