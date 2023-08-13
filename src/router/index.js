@@ -21,6 +21,11 @@ const routes = [
     name: 'Products',
     component: () => import(/* webpackChunkName: "productDetails" */ '../views/ProductDetails.vue'),
   },
+  {
+    path: '/unstop',
+    name: 'Unstop',
+    component: () => import(/* webpackChunkName: "UnstopPage" */ '../views/UnStopPage.vue'),
+  },
 ];
 
 const router = createRouter({
