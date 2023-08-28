@@ -11,7 +11,7 @@
         <RouterLink class="header__nav__link" to="/"> Home </RouterLink>
         <RouterLink class="header__nav__link" to="/cartpage"> Cart </RouterLink>
         <RouterLink class="header__nav__link" to="/about"> About </RouterLink>
-        <RouterLink class="header__nav__link" to="/unstop"> Unstop </RouterLink>
+       
       </nav>
     </header>
     <RouterView />
